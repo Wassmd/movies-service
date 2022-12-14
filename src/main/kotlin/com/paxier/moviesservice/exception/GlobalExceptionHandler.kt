@@ -16,6 +16,10 @@ class GlobalExceptionHandler(val objectMapper: ObjectMapper): ErrorWebExceptionH
             response.statusCode = HttpStatus.NOT_FOUND
         }
 
+        if (ex is MovieInfoClientException) {
+            response.statusCode = HttpStatus.INTERNAL_SERVER_ERROR
+        }
+
         val buffer = response.bufferFactory().wrap(objectMapper.writeValueAsBytes(ex.message))
 
         return exchange.response.writeWith(Mono.just(buffer))

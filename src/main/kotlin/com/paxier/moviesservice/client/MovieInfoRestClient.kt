@@ -32,6 +32,9 @@ class MovieInfoRestClient(
             .onStatus(HttpStatus.NOT_FOUND::equals) {
                 Mono.error(MovieInfoClientException("Movie is not found for movieId: $movieId"))
             }
+            .onStatus(HttpStatus.INTERNAL_SERVER_ERROR::equals) {
+                Mono.error(MovieInfoClientException("Looks like micro service is down..."))
+            }
             .bodyToMono(MovieInfo::class.java)
             .log()
 
