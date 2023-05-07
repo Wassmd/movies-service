@@ -2,3 +2,10 @@ restClient:
   moviesInfoUrl: http://localhost:8081/v1/movieinfos
   reviewsUrl: http://localhost:8082/reviews
   usersUrl: http://localhost:8083/api/users
+
+app:
+  webclient:
+    proxy:
+      enabled: false
+      host: "localhost"
+      port: 8888

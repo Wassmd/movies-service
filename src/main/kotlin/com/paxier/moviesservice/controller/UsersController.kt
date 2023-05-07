@@ -15,4 +15,8 @@ class UsersController(
    fun getUsers(): Mono<Any> {
         return usersClient.getAllUsers()
     }
+    @GetMapping("/error")
+    fun getError(): Mono<Any> {
+        return usersClient.getError()
+    }
 }
