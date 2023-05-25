@@ -1,23 +1,13 @@
 package com.paxier.moviesservice.client
 
 import com.paxier.moviesservice.domain.MovieInfo
-import com.paxier.moviesservice.downstream.ServiceEndpoint
-import com.paxier.moviesservice.downstream.ServiceEnpointDataFetcher
-import com.paxier.moviesservice.exception.MovieInfoClientException
-import org.slf4j.LoggerFactory
+import com.paxier.moviesservice.downstream.MicroServiceEndpoint
+import com.paxier.moviesservice.downstream.DownStreamRequester
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Configuration
-import org.springframework.core.io.Resource
 import org.springframework.http.HttpMethod
-import org.springframework.http.HttpStatus
-import org.springframework.http.HttpStatusCode
 import org.springframework.stereotype.Component
 import org.springframework.web.reactive.function.client.WebClient
-import org.springframework.web.reactive.function.client.bodyToMono
 import reactor.core.publisher.Mono
-import java.io.BufferedReader
-import java.net.http.HttpClient
 
 @Component
 class MovieInfoRestClient(
@@ -26,8 +16,8 @@ class MovieInfoRestClient(
 
     fun retrieveMovie(movieId: String): Mono<MovieInfo> {
         val url = "$moviesInfoURL/$movieId"
-        val endpoint = ServiceEndpoint(HttpMethod.GET, moviesInfoURL, "/$movieId", null)
-        return ServiceEnpointDataFetcher(endpoint, WebClient.builder().build()).get() as Mono<MovieInfo>
+        val endpoint = MicroServiceEndpoint(HttpMethod.GET, moviesInfoURL, "/$movieId", null)
+        return DownStreamRequester(endpoint, WebClient.builder().build()).get() as Mono<MovieInfo>
 
 //        return webClient
 //            .get()

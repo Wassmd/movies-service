@@ -1,18 +1,13 @@
 package com.paxier.moviesservice.downstream
 
-import com.paxier.moviesservice.config.WebClientConfigurationProperties
-import io.netty.channel.ChannelOption
 import org.slf4j.LoggerFactory
-import org.springframework.http.client.reactive.ReactorClientHttpConnector
 import org.springframework.web.reactive.function.client.WebClient
 import org.springframework.web.reactive.function.client.WebClientResponseException
 import reactor.core.publisher.Mono
-import reactor.netty.transport.ProxyProvider
-import reactor.netty.http.client.HttpClient
 
 
-class ServiceEnpointDataFetcher(
-    private val endpoint: ServiceEndpoint,
+class DownStreamRequester(
+    private val endpoint: MicroServiceEndpoint,
     webClient: WebClient
 ) {
 
@@ -40,6 +35,6 @@ class ServiceEnpointDataFetcher(
     }
 
     companion object {
-        private val Logger = LoggerFactory.getLogger(ServiceEnpointDataFetcher::class.java.name)
+        private val Logger = LoggerFactory.getLogger(DownStreamRequester::class.java.name)
     }
 }

@@ -9,3 +9,6 @@ app:
       enabled: false
       host: "localhost"
       port: 8888
+
+server:
+  port: 8081

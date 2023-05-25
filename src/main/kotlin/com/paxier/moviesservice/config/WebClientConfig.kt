@@ -26,7 +26,6 @@ class WebClientConfig {
     fun clientHttpConnector(config: WebClientConfigurationProperties): ReactorClientHttpConnector {
         val httpClient = HttpClient.create()
             .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, config.connectTimeoutMillis)
-            .compress(true)
             .run {
                 if (config.proxy.enabled) {
                     proxy { it.type(config.proxy.type).host(config.proxy.host).port(config.proxy.port) }

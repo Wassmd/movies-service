@@ -1,8 +1,7 @@
 package com.paxier.moviesservice.client
 
-import com.paxier.moviesservice.downstream.ServiceEndpoint
-import com.paxier.moviesservice.downstream.ServiceEnpointDataFetcher
-import org.springframework.beans.factory.BeanFactory
+import com.paxier.moviesservice.downstream.MicroServiceEndpoint
+import com.paxier.moviesservice.downstream.DownStreamRequester
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpMethod
 import org.springframework.stereotype.Component
@@ -12,16 +11,15 @@ import reactor.core.publisher.Mono
 @Component
 class UsersClient (
     @Value("\${restClient.usersUrl}") val usersURL: String,
-    private val beanFactory: BeanFactory) {
+    val webClientBuilder: WebClient.Builder) {
     fun getAllUsers(): Mono<Any> {
-        val endpoint = ServiceEndpoint(HttpMethod.GET, usersURL, "/all", "name=Wasim")
-        val webClient = beanFactory.getBean(WebClient.Builder::class.java)
-        return ServiceEnpointDataFetcher(endpoint, webClient.build()).get()
+        val endpoint = MicroServiceEndpoint(HttpMethod.GET, usersURL, "/all", "name=Wasim")
+        return DownStreamRequester(endpoint, webClientBuilder.build()).get()
     }
 
     fun getError(): Mono<Any> {
-        val endpoint = ServiceEndpoint(HttpMethod.GET, usersURL, "/error", null)
+        val endpoint = MicroServiceEndpoint(HttpMethod.GET, usersURL, "/error", null)
         val webClient = WebClient.builder().build()
-        return ServiceEnpointDataFetcher(endpoint, webClient).get()
+        return DownStreamRequester(endpoint, webClient).get()
     }
 }

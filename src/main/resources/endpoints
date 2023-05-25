@@ -4,4 +4,4 @@ curl  http://localhost:8080/movies/1
 ------------------------------------------
 
 µ-service Users:
-curl http://localhost:8080/movies-users/all
+curl http://localhost:8081/movies-users/all
