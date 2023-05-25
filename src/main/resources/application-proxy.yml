@@ -2,5 +2,3 @@ app:
   webclient:
     proxy:
       enabled: true
-      host: "localhost"
-      port: 8888
