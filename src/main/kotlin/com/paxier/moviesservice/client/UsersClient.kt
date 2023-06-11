@@ -17,6 +17,10 @@ class UsersClient (
         return DownStreamRequester(endpoint, webClientBuilder.build()).get()
     }
 
+    fun getUsersById(id: Int): Mono<Any> {
+        val endpoint = MicroServiceEndpoint(HttpMethod.GET, usersURL, "/$id", null)
+        return DownStreamRequester(endpoint, webClientBuilder.build()).get()
+    }
     fun getError(): Mono<Any> {
         val endpoint = MicroServiceEndpoint(HttpMethod.GET, usersURL, "/error", null)
         val webClient = WebClient.builder().build()

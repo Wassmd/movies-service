@@ -9,6 +9,30 @@ app:
       enabled: false
       host: "localhost"
       port: 8888
+    enable-oauth2: true
 
 server:
   port: 8081
+
+spring:
+  cache:
+    caffeine:
+      spec: expireAfterWrite=1m
+      record-stats: true
+    cache-names: userCache
+
+  security:
+    oauth2:
+      resourceserver.jwt:
+        issuer-uri: "https://account.com/realms/sso"
+      client:
+        provider:
+          paxier:
+            token-uri: "https://auth.com/realms/protocol/token"
+        registration:
+          paxier:
+            client-id: 'test'
+            client-secret: 'test'
+            client-authentication-method: client_secret_basic
+            authorization-grant-type: client_credentials
+            scope: read
